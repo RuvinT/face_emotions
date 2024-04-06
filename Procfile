@@ -1,1 +1,1 @@
-Web: gunicon backend:app
+Web: gunicorn backend:app
