@@ -1,3 +1,2 @@
-python-3.12.2
 tensorflow==2.15.0
 flask==2.1.0
