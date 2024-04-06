@@ -1,1 +1,1 @@
-worker: python backend.py
+Web: gunicon backend:app
