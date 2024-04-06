@@ -7,7 +7,7 @@ Created on Fri Apr  5 22:22:20 2024
 """
 
 from flask import Flask, request, jsonify
-from tensorflow.keras.models import load_model
+# tensorflow.keras.models import load_model
 
 app = Flask(__name__)
 #model = load_model("emotion_detection_model_final.h5")
