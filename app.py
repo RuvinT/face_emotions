@@ -6,11 +6,9 @@ Created on Fri Apr  5 22:22:20 2024
 @author: ruvinjagoda
 """
 
-from flask import Flask, request, jsonify
+from flask import Flask
 
-# tensorflow.keras.models import load_model
 
-#from tensorflow.keras.models import load_model
 
 
 app = Flask(__name__)
@@ -20,12 +18,5 @@ app = Flask(__name__)
 def home():
     return 'flask app'
     
-'''   
-@app.route('/predict', methods=['POST'])
-def predict():
-    data = request.get_json(force=True)
-    prediction = model.predict(data['image'])
-    return jsonify(prediction.tolist())
-'''
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
