@@ -1,1 +1,1 @@
-Web: gunicon backend:app
+web: python backend.py
