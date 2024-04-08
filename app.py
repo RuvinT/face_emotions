@@ -48,10 +48,11 @@ def predict():
     logger.info('Image recieved')
     # Perform prediction
     prediction = model.predict(image)
-
+    logger.info('did prediction')
+    logger.info(prediction)
     # Load the LabelEncoder object
     label_encoder_loaded = joblib.load('label_encoder.pkl')
-
+    logger.info('Label encoder done')
     # Decode one-hot encoded predictions back to original labels
     decoded_predictions = label_encoder_loaded.inverse_transform(np.argmax(prediction, axis=1))
 
