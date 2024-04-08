@@ -37,28 +37,31 @@ def home():
 @app.route('/predict', methods=['POST'])
 def predict():
     logger.info('Received prediction request')
-    if 'image' not in request.files:
-        logger.error('No image file found in request')
-        return 'No image file found.', 400
+    try:
+        if 'image' not in request.files:
+            logger.error('No image file found in request')
+            return 'No image file found.', 400
 
-    file = request.files['image']
+        file = request.files['image']
 
-    # Read the image file and preprocess it
-    image = preprocess_image(file)
-    logger.info('Image recieved')
-    # Perform prediction
-    prediction = model.predict(image)
-    logger.info('did prediction')
-    logger.info(prediction)
-    # Load the LabelEncoder object
-    label_encoder_loaded = joblib.load('label_encoder.pkl')
-    logger.info('Label encoder done')
-    # Decode one-hot encoded predictions back to original labels
-    decoded_predictions = label_encoder_loaded.inverse_transform(np.argmax(prediction, axis=1))
+        # Read the image file and preprocess it
+        image = preprocess_image(file)
 
-    logger.info('Prediction successful')
-    # Return prediction result
-    return jsonify(decoded_predictions.tolist())
+        # Perform prediction
+        prediction = model.predict(image)
+
+        # Load the LabelEncoder object
+        label_encoder_loaded = joblib.load('label_encoder.pkl')
+
+        # Decode one-hot encoded predictions back to original labels
+        decoded_predictions = label_encoder_loaded.inverse_transform(np.argmax(prediction, axis=1))
+
+        logger.info('Prediction successful')
+        # Return prediction result
+        return jsonify(decoded_predictions.tolist())
+    except Exception as e:
+        logger.error(f"An error occurred during prediction: {e}")
+        return 'Error during prediction.', 500
 
 def preprocess_image(file):
     img = Image.open(BytesIO(file.read()))
