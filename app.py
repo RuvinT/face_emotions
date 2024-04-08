@@ -16,9 +16,8 @@ CORS(app)
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-# Get the directory of the current script
-current_dir = os.path.dirname(os.path.abspath(__file__))
-model_file_path = os.path.join(current_dir, 'face_emotion_detection_model.h5')
+
+model_file_path = 'face_emotion_detection_model.h5'
 
 def load_custom_model(model_path):
     custom_objects = {'InputLayer': InputLayer}
