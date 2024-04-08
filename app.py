@@ -1,35 +1,8 @@
-<<<<<<< Updated upstream
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-Created on Fri Apr  5 22:22:20 2024
 
-@author: ruvinjagoda
-"""
-
-from flask import Flask#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-Created on Sun Apr  7 23:11:12 2024
-
-@author: ruvinjagoda
-"""
-
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-Created on Sat Apr  6 22:05:49 2024
-
-@author: ruvinjagoda
-"""
-=======
->>>>>>> Stashed changes
 from flask import Flask, request, jsonify,render_template
 from tensorflow.keras.models import load_model
 from tensorflow.keras.layers import InputLayer
 import numpy as np
-<<<<<<< Updated upstream
-from flask import Flask, request, redirect, url_for
 import os
 import joblib
 from PIL import Image
@@ -62,7 +35,7 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 @app.route('/')
 def home():
-    return 'this is working'
+    return render_template('index.html')
 
 @app.route('/predict', methods=['POST'])
 def predict():
@@ -102,64 +75,16 @@ def preprocess_image(file):
     img_array = img_array.reshape(-1, 64, 64, 3)
 
     return img_array
-
+    
+@app.after_request
+def add_cors_headers(response):
+    response.headers['Access-Control-Allow-Origin'] = '*'
+    response.headers['Access-Control-Allow-Methods'] = 'POST'
+    response.headers['Access-Control-Allow-Headers'] = 'Content-Type'
+    return response
+    
 if __name__ == '__main__':
     app.run()
 
 
 
-=======
-from flask_cors import CORS
-import logging
-import os
->>>>>>> Stashed changes
-
-
-app = Flask(__name__)
-CORS(app)
-
-
-def load_custom_model(model_path):
-    custom_objects = {'InputLayer': InputLayer}
-    return load_model(model_path, custom_objects=custom_objects)
-
-model = load_custom_model("face_emotion_detection_model.h5")
-
-@app.route('/')
-def hello_world():
-    return 'image'
-
-
-@app.route('/post-example', methods=['POST'])
-def post_example():
-    logging.debug('Received POST request to /predict endpoint')
-    # Get the JSON data from the request
-    data = request.json
-    
-    # Extract data from the JSON
-    image = data.get('image')
-    print(image)
-    #prediction = model.predict([image])
-    response_data = jsonify('okey')
-    
-    
-    # Return a JSON response
-    return jsonify(response_data)
-UPLOAD_FOLDER = 'uploads'
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-
-
-
-@app.route('/upload', methods=['POST'])
-def upload():
-    if 'image' in request.files:
-        file = request.files['image']
-        if file.filename != '':
-            filename = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
-            file.save(filename)
-            return jsonify({'url': filename})
-    
-    return jsonify({'error': 'No image found'}), 400
-
-if __name__ == '__main__':
-    app.run(debug=True)
