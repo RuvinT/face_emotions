@@ -35,7 +35,7 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 @app.route('/')
 def home():
-    return 'this is working'
+    return render_template('index.html')
 
 @app.route('/predict', methods=['POST'])
 def predict():
