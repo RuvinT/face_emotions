@@ -75,7 +75,14 @@ def preprocess_image(file):
     img_array = img_array.reshape(-1, 64, 64, 3)
 
     return img_array
-
+    
+@app.after_request
+def add_cors_headers(response):
+    response.headers['Access-Control-Allow-Origin'] = '*'
+    response.headers['Access-Control-Allow-Methods'] = 'POST'
+    response.headers['Access-Control-Allow-Headers'] = 'Content-Type'
+    return response
+    
 if __name__ == '__main__':
     app.run()
 
