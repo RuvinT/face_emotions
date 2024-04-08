@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
@@ -21,10 +22,13 @@ Created on Sat Apr  6 22:05:49 2024
 
 @author: ruvinjagoda
 """
+=======
+>>>>>>> Stashed changes
 from flask import Flask, request, jsonify,render_template
 from tensorflow.keras.models import load_model
 from tensorflow.keras.layers import InputLayer
 import numpy as np
+<<<<<<< Updated upstream
 from flask import Flask, request, redirect, url_for
 import os
 import joblib
@@ -104,14 +108,58 @@ if __name__ == '__main__':
 
 
 
+=======
+from flask_cors import CORS
+import logging
+import os
+>>>>>>> Stashed changes
 
 
 app = Flask(__name__)
-#model = load_model("emotion_detection_model_final.h5")
+CORS(app)
+
+
+def load_custom_model(model_path):
+    custom_objects = {'InputLayer': InputLayer}
+    return load_model(model_path, custom_objects=custom_objects)
+
+model = load_custom_model("face_emotion_detection_model.h5")
 
 @app.route('/')
-def home():
-    return 'flask app'
+def hello_world():
+    return 'image'
+
+
+@app.route('/post-example', methods=['POST'])
+def post_example():
+    logging.debug('Received POST request to /predict endpoint')
+    # Get the JSON data from the request
+    data = request.json
     
+    # Extract data from the JSON
+    image = data.get('image')
+    print(image)
+    #prediction = model.predict([image])
+    response_data = jsonify('okey')
+    
+    
+    # Return a JSON response
+    return jsonify(response_data)
+UPLOAD_FOLDER = 'uploads'
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
+
+
+@app.route('/upload', methods=['POST'])
+def upload():
+    if 'image' in request.files:
+        file = request.files['image']
+        if file.filename != '':
+            filename = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
+            file.save(filename)
+            return jsonify({'url': filename})
+    
+    return jsonify({'error': 'No image found'}), 400
+
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)
