@@ -45,6 +45,6 @@ You can install these libraries using pip:
 ```bash
 pip install gunicorn==20.1.0 click==7.1.2 Flask==1.1.2 itsdangerous==1.1.0 Jinja2==2.11.3 MarkupSafe==1.1.1 Werkzeug==1.0.1 tensorflow==2.12.0 joblib Pillow flask_cors
 ```
-```
 
-You can copy and paste this Markdown content into your README.md file on GitHub.
+
+
