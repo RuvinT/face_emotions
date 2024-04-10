@@ -1,6 +1,4 @@
-Here's the provided content formatted in Markdown:
 
-```markdown
 # Face Detection App
 
 ## Running Locally
@@ -10,9 +8,9 @@ To run the face detection app locally on your machine, follow these steps:
 1. Clone this repository to your local machine.
 2. Install the required Python libraries by running the following command:
 
-```bash
+
 pip install -r requirements.txt
-```
+
 
 The `requirements.txt` file contains the necessary dependencies for the app to run.
 
